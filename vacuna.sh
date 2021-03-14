@@ -11,15 +11,17 @@ template1="Dosis distribuidas:"
 template2="Dosis administradas:"
 template3="Dosis pendientes:"
 template4="Tasa de administracion:"
-template5="Inmunizados parciales:"
-template6="Inmunizados totales:"
+template5="Parcialmente inmunizados:"
+template6="Totalmente inmunizados:"
 template7="Tasa de inmunizacion:"
 data=$[$[aux1] - $[aux2]]
 d1=`numfmt --grouping $data`
 d2=`bc -l <<< $aux2/$aux1*100 | head -c 5`
-d3=`bc -l <<< $aux3/$data4*100 | head -c 5`
+dataaux=$[$[aux2] - $[aux3]]
+d3=`numfmt --grouping $dataaux`
+d4=`bc -l <<< $aux3/$data4*100 | head -c 5`
 url="Fuente: Ministerio de Sanidad.\nhttps://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/situacionActual.htm"
-tweet="${template1} ${data1}\n${template2} ${data2}\n${template3} ${d1}\n${template4} ${d2}%\n${template5} ${data2}\n${template6} ${data3}\n${template7} ${d3}%\n${url}"
+tweet="${template1} ${data1}\n${template2} ${data2}\n${template3} ${d1}\n${template4} ${d2}%\n${template5} ${d3}\n${template6} ${data3}\n${template7} ${d4}%\n${url}"
 `echo -e "$tweet" > vacuna.txt`
 send=`cat vacuna.txt`
 t update "$send"
