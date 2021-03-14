@@ -1,5 +1,5 @@
 #!/bin/bash
-Fuente: https://www.enmimaquinafunciona.com/pregunta/23759/cual-es-la-diferencia-entre-binsh-binbash
+`sudo sleep 120`
 `sudo wget -O /root/vacuna.html https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/situacionActual.htm`
 `sudo chmod 777 /root/vacuna.html`
 `sudo grep "<p class=\"cifra\">*" /root/vacuna.html | cut -d ">" -f 2 | cut -d "<" -f 1 | tail -n 3 | sed "s/\.//g" > /root/vacuna.txt`
