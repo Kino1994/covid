@@ -27,7 +27,7 @@ d3=`sudo numfmt --grouping $dataaux`
 d4=`sudo bc -l <<< $dataaux/$data4*100 | head -c 5`
 d5=`sudo bc -l <<< $aux3/$data4*100 | head -c 5`
 url="Fuente: Ministerio de Sanidad.\nhttps://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/situacionActual.htm"
-tweet="${template1} ${data1}\n${template2} ${data2}\n${template3} ${d1}\n${template4} ${d2}%\n${template5} ${d3}\n${template6} ${data3}\n${template7} ${d4}%\n${template8} ${d5}%..."
+tweet="${template1} ${data1}\n${template2} ${data2}\n${template3} ${d1}\n${template4} ${d2}%\n${template5} ${d3}\n${template6} ${data3}\n${template7} ${d4}%\n${template8} ${d5}%"
 `sudo echo -e "$tweet" > /root/vacuna.txt`
 send=`sudo cat /root/vacuna.txt`
 t update "$send"
