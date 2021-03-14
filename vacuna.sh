@@ -21,6 +21,6 @@ url="Fuente: Ministerio de Sanidad.\nhttps://www.mscbs.gob.es/profesionales/salu
 tweet="${template1} ${data1}\n${template2} ${data2}\n${template3} ${d1}\n${template4} ${d2}%\n${template5} ${data2}\n${template6} ${data3}\n${template7} ${d3}%\n${url}"
 `echo -e "$tweet" > vacuna.txt`
 send=`cat vacuna.txt`
-echo "$send"
+t update "$send"
 rm vacuna.txt
 rm vacuna.html
