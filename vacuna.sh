@@ -1,4 +1,3 @@
-
 #!/bin/bash
 `sudo sleep 120`
 `sudo wget -O /root/vacuna.html https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/situacionActual.htm`
