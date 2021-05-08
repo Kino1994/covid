@@ -10,7 +10,7 @@ now=`echo 20$year$month$day`
 `sudo mv vacuna2.pdf vacuna.pdf`
 `sudo wget -O /root/vacuna.html https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/situacionActual.htm`
 `sudo chmod 777 /root/vacuna.html`
-`sudo grep "<p class=\"cifra\">*" /root/vacuna.html | cut -d ">" -f 2 | cut -d "<" -f 1 | tail -n 3 | sed "s/\.//g" > /root/vacuna.txt`
+`sudo grep "<p class=\"cifra\">*" /root/vacuna.html | cut -d ">" -f 2 | cut -d "<" -f 1 | cut -d ";" -f 2 | tail -n 3 | sed "s/\.//g" > /root/vacuna.txt`
 `sudo chmod 777 /root/vacuna.txt`
 aux1=`sudo head -n 1 /root/vacuna.txt`
 aux2=`sudo sed -n '2p' /root/vacuna.txt`
