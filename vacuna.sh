@@ -1,5 +1,11 @@
 #!/bin/bash
 `sudo sleep 120`
+`sudo rm /root/vacuna.html`
+`sudo rm /root/vacuna.pdf`
+`sudo rm /root/vacuna2.pdf`
+`sudo rm /root/vacuna.txt`
+`sudo rm /root/vacuna2.txt`
+`sudo rm /root/vacuna.png`
 day=$(date +%d)
 month=$(date +%m)
 year=$(date +%y)
