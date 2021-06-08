@@ -1,4 +1,4 @@
-#!/bin/bash
+1#!/bin/bash
 `sudo sleep 120`
 day=$(date +%d)
 month=$(date +%m)
@@ -6,18 +6,19 @@ year=$(date +%y)
 now=`echo 20$year$month$day`
 `sudo wget -O /root/vacuna.pdf https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/documentos/Informe_GIV_comunicacion_$now.pdf`
 `sudo pdftk /root/vacuna.pdf cat 2 output /root/vacuna2.pdf`
-`sudo mv root/vacuna2.pdf /root/vacuna.pdf`
+`sudo mv /root/vacuna2.pdf /root/vacuna.pdf`
 `pdftotext -layout -nopgbrk /root/vacuna.pdf /root/vacuna.txt`
-`sed -i -n '20,29p' vacuna.txt`
-`sed -i '/^[[:space:]]*$/d' vacuna.txt`
+`sed -i -n '20,29p' /root/vacuna.txt`
+`sed -i '/^[[:space:]]*$/d' /root/vacuna.txt`
 `sed -i 's/\.//g' vacuna.txt`
-`sed -n 1p vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2  >> vacuna2.txt`
-`sed -n 2p vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2 >> vacuna2.txt`
-`sed -n 4p vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 3 >> vacuna2.txt`
-`sed -n 6p vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2 >> vacuna2.txt`
-least1=`cat /root/vacuna2.txt | cut -d " " -f 2 | paste -sd+ | bc`
+`sed -n 1p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2  >> /root/vacuna2.txt`
+`sed -n 2p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2 >> /root/vacuna2.txt`
+`sed -n 4p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 3 >> /root/vacuna2.txt`
+`sed -n 6p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2 >> /root/vacuna2.txt`
+janssen=`sed -n 4p /root/vacuna2.txt | cut -d " " -f 2  | paste -sd+ | bc`
+least1=`cat /root/vacuna2.txt | cut -d " " -f 2  | paste -sd+ | bc`
 complete=`cat /root/vacuna2.txt | cut -d " " -f 3 | paste -sd+ | bc`
-partial=`sudo bc -l <<< $least1-$complete`
+partial=`sudo bc -l <<< $janssen+$least1-$complete`
 `sudo wget -O /root/vacuna.html https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/situacionActual.htm`
 `sudo chmod 777 /root/vacuna.html`
 `sudo grep "<p class=\"cifra\">*" /root/vacuna.html | cut -d ">" -f 2 | cut -d "<" -f 1 | cut -d ";" -f 2 | tail -n 3 | sed "s/\.//g" > /root/vacuna.txt`
