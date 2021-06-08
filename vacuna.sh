@@ -18,7 +18,7 @@ now=`echo 20$year$month$day`
 janssen=`sed -n 4p /root/vacuna2.txt | cut -d " " -f 2  | paste -sd+ | bc`
 least1=`cat /root/vacuna2.txt | cut -d " " -f 2  | paste -sd+ | bc`
 complete=`cat /root/vacuna2.txt | cut -d " " -f 3 | paste -sd+ | bc`
-partial=`sudo bc -l <<< $janssen+$least1-$complete`
+partial=`sudo bc -l <<< $least1-$complete`
 `sudo wget -O /root/vacuna.html https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/situacionActual.htm`
 `sudo chmod 777 /root/vacuna.html`
 `sudo grep "<p class=\"cifra\">*" /root/vacuna.html | cut -d ">" -f 2 | cut -d "<" -f 1 | cut -d ";" -f 2 | tail -n 3 | sed "s/\.//g" > /root/vacuna.txt`
