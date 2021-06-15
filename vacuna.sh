@@ -17,12 +17,11 @@ now=`echo 20$year$month$day`
 `convert -verbose -density 150 -trim vacuna.pdf -quality 100 -flatten -sharpen 0x1.0 /root/vacuna.png`
 `sed -i -n '20,29p' /root/vacuna.txt`
 `sed -i '/^[[:space:]]*$/d' /root/vacuna.txt`
-`sed -i 's/\.//g' vacuna.txt`
+`sed -i 's/\.//g' /root/vacuna.txt`
 `sed -n 1p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2  >> /root/vacuna2.txt`
 `sed -n 2p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2 >> /root/vacuna2.txt`
-`sed -n 4p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 3 >> /root/vacuna2.txt`
+`sed -n 4p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2 >> /root/vacuna2.txt`
 `sed -n 6p /root/vacuna.txt | sed -e 's/ \{2,\}/ /g' | cut -d ")" -f 2 >> /root/vacuna2.txt`
-janssen=`sed -n 4p /root/vacuna2.txt | cut -d " " -f 2  | paste -sd+ | bc`
 least1=`cat /root/vacuna2.txt | cut -d " " -f 2  | paste -sd+ | bc`
 complete=`cat /root/vacuna2.txt | cut -d " " -f 3 | paste -sd+ | bc`
 partial=`sudo bc -l <<< $least1-$complete`
