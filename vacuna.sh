@@ -1,20 +1,24 @@
 #!/bin/bash
-`sudo sleep 120`
+`sudo sleep 1`
 `sudo rm /root/vacuna.html`
 `sudo rm /root/vacuna.pdf`
 `sudo rm /root/vacuna2.pdf`
 `sudo rm /root/vacuna.txt`
 `sudo rm /root/vacuna2.txt`
 `sudo rm /root/vacuna.png`
+`sudo rm /root/vacuna2.png`
+`sudo rm /root/id.txt`
 day=$(date +%d)
 month=$(date +%m)
 year=$(date +%y)
 now=`echo 20$year$month$day`
 `sudo wget -O /root/vacuna.pdf https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/documentos/Informe_GIV_comunicacion_$now.pdf`
 `sudo pdftk /root/vacuna.pdf cat 2 output /root/vacuna2.pdf`
+`sudo pdftk /root/vacuna.pdf cat 4 output /root/vacuna3.pdf`
 `sudo mv /root/vacuna2.pdf /root/vacuna.pdf`
 `pdftotext -layout -nopgbrk /root/vacuna.pdf /root/vacuna.txt`
 `convert -verbose -density 150 -trim vacuna.pdf -quality 100 -flatten -sharpen 0x1.0 /root/vacuna.png`
+`convert -verbose -density 150 -trim vacuna3.pdf -crop 550x755+950+135 -quality 100 -sharpen 0x1.0 /root/vacuna2.png`
 `sed -i -n '20,29p' /root/vacuna.txt`
 `sed -i '/^[[:space:]]*$/d' /root/vacuna.txt`
 `sed -i 's/\.//g' /root/vacuna.txt`
@@ -61,10 +65,14 @@ url="Fuente: Ministerio de Sanidad.\nhttps://www.mscbs.gob.es/profesionales/salu
 tweet="${template1} ${data1}\n${template2} ${data2}\n${template3} ${d1}\n${template4} ${d2}%\n${template5} ${d3} (${d7}%)\n${template6} ${d4} (${d8}%)\n${template7} ${d5} (${d9}%)\n${template8} ${d6} (${d10}%)"
 `sudo echo -e "$tweet" > /root/vacuna.txt`
 send=`sudo cat /root/vacuna.txt`
-`t update "$send" -f /root/vacuna.png`
+`t update "$send" -f /root/vacuna.png > /root/id.txt`
+response=`cat /root/id.txt | cut -d " " -f 5 | grep -Eo "[0-9]{1,}"`
+`t reply $response "Detalle de Coberturas por Grupos Etarios Prioritarios:" -f /root/vacuna2.png`
 `sudo rm /root/vacuna.html`
 `sudo rm /root/vacuna.pdf`
 `sudo rm /root/vacuna2.pdf`
 `sudo rm /root/vacuna.txt`
 `sudo rm /root/vacuna2.txt`
 `sudo rm /root/vacuna.png`
+`sudo rm /root/vacuna2.png`
+`sudo rm /root/id.txt`
